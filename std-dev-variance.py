@@ -2,7 +2,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# mean 100, Standard deviation of 20, sample size 10000
+# Create a normal distribution with
+# mean of 100
+# standard deviation of 20
+# sample size of 10,000
 incomes = np.random.normal(100.0, 20.0, 10000)
 
 # Plot a histogram
