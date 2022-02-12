@@ -30,3 +30,10 @@ sp.skew(vals)
 # Kurtosis is not influenced by changing the mean,
 # and not influenced by changing the std-dev
 sp.kurtosis(vals)
+
+# Note
+#
+# Percentile: A number of which a given percent of observations fall below
+# For instance, 95th percentile of IQ is the top 5% of IQ scores
+# 95th percentile in IQ is 125, which means that only 5% of people
+# have an IQ score of above 125.
