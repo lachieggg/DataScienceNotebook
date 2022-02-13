@@ -87,6 +87,18 @@ Conditional Probability
 
 $Pr(B|A) = \dfrac{Pr(A,B)}{Pr(A)}$
 
+$Pr(A,B) = Pr(B|A)*Pr(A)$
+
 This is intuitive, since if $A$ has already occurred, the sample space is limited to situations where $A$ occurs. Therefore we should divide by the probability that $A$ occurs which *increases* the value of the fraction.
 
+$Pr(A,B) = P(A)*P(B) \Longleftrightarrow A$ and $B$ are independent.
 
+$Pr(A|B) = Pr(A)$ if $A$ and $B$ are independent
+
+**Derivation**
+
+$Pr(A|B) = \dfrac{Pr(A,B)}{Pr(B)}$
+
+$=> Pr(A|B) = \dfrac{Pr(A)*Pr(B)}{Pr(B)}$ when $A$ and $B$ are independent
+
+$=> Pr(A|B) = Pr(A)$
