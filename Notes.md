@@ -132,8 +132,31 @@ $=\dfrac{0.003*0.99}{0.013}$
 
 $= 0.228 $
 
+In summary, from the above, it is clear that the probability that an event $A$ occurs given an event $B$ has occurred is not the same as the converse, namely the probability that an event $B$ occurs given an event A has occurred. 
 
+This can lead to very misleading results. In this case, the probability that a person is a user of a drug given that they tested positively for it is still only 22.8%. Phrased another way, this means that even if someone tests positively for the drug it is still more likely that they are not a user of that drug. 
 
+We can see from this that the probabilities of $A |B$ and $B|A$ depend on the base probabilities. If the base probability of $B$ or $A$ is relatively low, this can impact the difference in the outcome of the probabilities of $A|B$ versus $B|A$ 
 
+Linear Regression
+=
 
+Linear Regression is just fitting a line to a set of observations.
 
+We can use this to predict unobserved values.
+
+The name "linear regression" is misleading, it doesn't necessarily have anything to do with time or backtracking. **It is just fitting a line to a set of data points.**
+
+Linear regression uses the least squares algorithm.
+
+It is a model in which we minimize the sum of squared errors from a line. That is, we compute $m$ and $c$ in the equation $y = mx + c$, for which the sum of squared differences from the data points to $y$ is minimized.
+
+It is also known as the "maximum likelihood estimation". 
+
+**Measuring error with r-squared**
+
+How well does the line computed by the linear regression fit the data?
+
+R-squared will vary from 0 to 1.
+
+0 means that no variance in the model is captured, 1 means all of the variance is captured.
