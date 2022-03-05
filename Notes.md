@@ -160,3 +160,47 @@ How well does the line computed by the linear regression fit the data?
 R-squared will vary from 0 to 1.
 
 0 means that no variance in the model is captured, 1 means all of the variance is captured.
+
+Polynomial Regression
+=
+
+Important to note is that in polynomial regression, we want to avoid overfitting or underfitting to our data.
+
+That is, we want to find a value of n, for which our polynomial is of degree n, that fits our data sufficiently but does not overvalue outliers in its shape.
+
+
+Multiple Regression
+=
+
+When developing a model for predicting the price of a car, there are multiple variables that you would want to consider.
+
+This is an instance in which we would use multiple regression, that is, regression across multiple variables.
+
+Multiple regression is therefore when the outcome we are calculating depends on multiple input variables or independent variables.
+
+For instance:
+
+$price = \alpha + \beta_{1}*mileage + \beta_{2}*age + \beta_{3}*doors$
+
+
+
+
+
+Multivariate Regression
+=
+
+Multivariate Regression is when we are predicting multiple outcomes, for instance, not just the price of a car, but perhaps estimate the time it will run for before needing a new engine.
+
+In this case there could be several input variables as well as several output variables as well.
+
+Articulated concisely, this is basically just having multiple dependent variables.
+
+Multi-Level Models
+=
+
+From the lecture, some things happen at various different levels in a hierarchy.
+
+Your health, is a function of how healthy the cells in your body are. The health of your cells is a function of how healthy the organs they are contained within are. The health of your organs are a function of how healthy your body is, which is in turn a function of the state of the society in which you live.
+
+Predicting SAT scores for instance, might be based on the home environment of the child, how educated their parents are, how much money their parents were willing to invest in their education, whether they were available to tutor their kids in the course, amongst many other factors.
+
