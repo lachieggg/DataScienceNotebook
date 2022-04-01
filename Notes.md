@@ -204,3 +204,103 @@ Your health, is a function of how healthy the cells in your body are. The health
 
 Predicting SAT scores for instance, might be based on the home environment of the child, how educated their parents are, how much money their parents were willing to invest in their education, whether they were available to tutor their kids in the course, amongst many other factors.
 
+Machine Learning
+=
+
+From the lecture, machine learning is the study and implementation of algorithms that can learn from observational data, and can make predictions on it.
+
+**Unsupervised Learning**
+
+The model is not given any "answers" to learn from, it just tries to make sense of the data.
+
+An example of something an unsupervised machine learning algorithm could be useful for, is clustering images into sets without telling the algorithm what characteristics the output should have or what should distinguish one image from being in one group versus another.
+
+If you don't know what you are looking for, then unsupervised learning can bring out the "latent variable", that is, an underlying variable or connection between inputs that is not intuitive.
+
+An example from the lectures is clustering users on a dating site based on their information and behaviour. Maybe there are groups of people that emerge that don't conform to your known stereotypes.
+
+**Supervised Learning**
+
+In supervised learning, the data the algorithm learns from comes with the correct answers.
+
+Then we are actually learning from that data to be able to predict the outcomes of certain input data.
+
+You can train your model against 80% of your data, and then test your model against the remaining 20% to see how the model performs. 
+
+It is important to ensure that the sets you are using are large enough to check for overfitting of outliers in testing. That is, there should be enough variability in the test and train sets to protect against accidentally overfitting.
+
+**K-fold Cross Validation**
+
+From the lectures:
+
+- Split data into $K$ randomly assigned segments
+- Reserve one segment as your test data
+- Train on each of the remaining $K-1$ segments and measure their performance
+- Take the average of the $K-1$ r-squared scores
+
+**Bayesian Methods**
+
+Recall:
+
+$Pr(A|B) = \dfrac{Pr(A)Pr(B|A)}{Pr(B)}$
+
+**Naive Bayes**
+
+For an example of spam classification algorithm, i.e. an algorithm that determines the probability of whether or not a given email is spam or not.
+
+Take an individual word in the email, for instance, the word "free", and use Bayes theorem to determine the probability that the email is spam given that it contains that word. Obviously we need a training data set of emails, and then we can work out fairly quickly what the probability is by sampling our data.
+
+Then we can take all the different words in an email, and multiply the probabilities together to get an outcome probability.
+
+It is called "Naive Bayes" because the probability of each word occurring is not necessarily independent of one another. That is, given two words $A$ and $B$, the probability that $A$ is in any email is not necessarily independent on the probability that $B$ is in any email. In fact, in many cases they are not independent.
+
+
+**K-Means Clustering**
+
+Unsupervised Machine Learning technique that splits data into K groups.
+
+For instance, given a scatter plot of data, we can group that data into 3 groups, based on how close certain data points are to one another.
+
+Centroids are at the center of each of the data sets that we split the group up into. We measure whether a data point is in a group based
+on which centroid it is closest to.
+
+Algorithm:
+- Pick K randomly positioned centroids
+- Assign all data points to their respective centroid
+- Find new centroids based on the average of each current cluster
+- Repeat this process until each point converges on one centroid.
+
+This is essentially just trying to find the right centroids through iteration. 
+
+Notes:
+
+*Choosing K* 
+
+Increase K until your sum of squared errors converges or stops being reduced significantly across iterations.
+
+*Avoiding local minima*
+
+Since our initial choice of centroids is random, we want to make sure that the initial choice did not produce a result that was starkly different to the rest.
+
+Therefore, we should iterate a few times with different values of our centroid in order to prevent "weird" outcomes.
+
+*Labelling clusters*
+
+K-Means classifies data to a limited extent. It does not give us meaning to the data. It's up to the data scientist to work out what the meaning is behind the clustering. 
+
+
+**Entropy**
+
+Entropy is a measure of a data set's disorder. If a data set of integers in an array consists of all 1s, then that data set will have an entropy of 0.
+
+If everything in the data set is of a particular type or class, then that contributes no entropy to the set. If nothing in the data set is of that particular type or class, then that also contributes nothing to the entropy, because there are no instances of that class in the dataset.
+
+
+**Decision Trees**
+
+A decision tree is a form of supervised learning that outputs a decision tree based on input data and classifications of that data. For example, given a set of data that has a set of weather conditions and whether or not I went out to play in the park on a given day, we can generate a deicison tree algorithm that will determine, for any given future data, whether or not I am likely to go outside and play on that day.
+
+Another example would be writing a program that will filter out resumes for a given job application, based on historical data.
+
+
+
