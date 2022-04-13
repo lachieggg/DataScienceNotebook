@@ -250,9 +250,11 @@ For an example of spam classification algorithm, i.e. an algorithm that determin
 
 Take an individual word in the email, for instance, the word "free", and use Bayes theorem to determine the probability that the email is spam given that it contains that word. Obviously we need a training data set of emails, and then we can work out fairly quickly what the probability is by sampling our data.
 
-Then we can take all the different words in an email, and multiply the probabilities together to get an outcome probability.
+Then we can take all the different words in an email, and multiply the probabilities together to get an outcome probability. This is the probability that the whole email is spam. 
 
-It is called "Naive Bayes" because the probability of each word occurring is not necessarily independent of one another. That is, given two words $A$ and $B$, the probability that $A$ is in any email is not necessarily independent on the probability that $B$ is in any email. In fact, in many cases they are not independent.
+It is called "Naive Bayes" because the probability of each word occurring is not necessarily independent of one another. That is, given two words $A$ and $B$, the probability that $A$ is in any email is not necessarily independent on the probability that $B$ is in any email. In fact, in many cases they are not independent. 
+
+Nevertheless this is a technique that seems to at least have some utility, considering the fact that it is fairly easy to implement and does basic spam classification fairly well.
 
 
 **K-Means Clustering**
@@ -302,5 +304,172 @@ A decision tree is a form of supervised learning that outputs a decision tree ba
 
 Another example would be writing a program that will filter out resumes for a given job application, based on historical data.
 
+ID3 is the algorithm for generating decision trees. At each step it minimizes the entropy of the data at the next step.
 
+*Random Forests (Bootstrap aggregating)*
+
+In order to prevent overfitting in our model, we can construct several decision trees from different random subsets of our dataset and attribute set, and then get each tree to "vote" on the best tree based on the outcomes, which as a set give a kind of set of probabilities for the best tree.
+
+**Ensemble Learning**
+
+Random forests are an example of *ensemble learning*.
+
+It is where you use multiple models at once and let them vote on the results.
+
+Boostrap aggregating is where we pick subsets of the data and vote on the best model.
+
+Boosting is a technique where certain attributes that are misclassified by the previous model is made more important, so that future models will "pay more attention" to these attributes. In other words, we find the weaknesses in the model and try to rectify that by boosting the importance of an attribute.
+
+A bucket of models trains different models and then picks the one that works best with the data.
+
+Whereas stacking runs several models at once, and then uses each model to vote on the outcome. 
+
+**XGBoost**
+
+eXtreme Gradient Boosted trees.
+
+Boosting is an ensemble method.
+
+Creates a set of trees, each of which boosts the attributes that led to incorrect classifications of the previous tree.
+
+XGBoost has several useful features
+
+- Overfit prevention
+- Missing value imputation
+- Parallel processing (threading) and runs on clusters
+- Cross Validation (finding the optimal number of iterations)
+- Incremental training (stop/start the training process)
+- Plug in custom variables to optimize for 
+- Tree pruning (generating optimized trees)
+
+*Hyperparameters*
+
+We can choose various "hyperparameters" for XGBoost to get the best reuslts.
+
+Booster: `gbtree` or `gblinear` 
+
+Objective: `multi:softmax` for finding the best classification, or `multi:softprob` for set of proabilities.
+
+Eta: Learning rate, adjusts the weights at each iteration.
+
+Depth: Maximum depth of the tree. Too small and it will be inaccurate, too high and we will overfit our model.
+
+Min Child Weight: Controls overfitting, if set too high it will underfit.
+
+XGBoost is (almost) all that you need to know for basic ML problems in practical terms for simple classification or regression problems.
+
+**Support Vector Machines**
+
+Supervised learning technique that is helpful for classifying higher dimensional data with lots of attributes or features.
+
+Mathematically complicated, but essentially finds "higher dimensional support vectors across which to divide the data". These support vectors are mathematically known as "hyperplanes".
+
+Implements something known as the "kernel trick".
+
+Despite doing clustering, just like K-Means, it is a supervised technique. 
+
+*Support Vector Classification*
+
+You can use different kernels to project down from these hyperdimensions into 2 dimensions, to essentially simplify the data from several dimensions and show it in $R^2$ 
+
+For example, we can have a linear kernel, that breaks up our two dimensions using linear functions. We can also have SVC with a polynomial function of degree $n$. The example of the lecture slides is a kernel with polynomial of degree 3.
+
+Recommender Systems
+=
+
+Recommender systems are used all over the Internet. The most well known examples include companies like Amazon and Netflix, that recommend new items based on your purchase and watch history respectively. These systems help users discover things that the system believes they might be interested in by using a variety of techniques in data science and machine learning depending on the application. 
+
+**User based collaborative filtering**
+
+A fancy term for just taking in behaviour across all user's, looking at similarities between users, and then making predictions about what user X might click on given that user X shares similar search history to user Y. In other words, making predictions about a user based on a combination of what you like and what everybody else likes.
+
+Essentially we build up a matrix of content/products/websites/people that each user had an interaction with, which could be represented as a boolean value, with the user as the row, and the "interacted with" item as the column.
+
+Then we can use this matrix to compute the similarity between two users. 
+
+As an interesting idea, potentially this relationship between users could be represented as a "similarity coefficient" as a number from 0 to 1. And then we could create a set of similarities between users. In this case, if we had n users, then there would be n-1 "similarity coefficients" between each user. Since there are n users, and there only needs to be one coefficient for two users, there would be $n*(n-1)/2$ total coefficients for the set of users. So the "coefficient" matrix would scale at $O(n^2)$ in space used relative to the number of users. This is quite large if we have a lot of users. Perhaps we could take a random sample of users in practice instead of iterating over every single other user, which would keep the size of this "similarity coefficient matrix" down.
+
+
+*Problems*
+
+- Fickleness, people's tastes change over time
+- More people than things, focusing on users can be expensive. 
+- Shilling attacks, fake likes or clicks
+
+**Item Based Collaborative Filtering**
+
+Instead of basing recommendations on whether or not user X is similar to user Y and finding things user X might like based on what user Y likes, we can instead find relationships between items. So now we can say, user X bought item A, and item A is similar to item B, so user X might also like item B. 
+
+This results in less computation, because there are less relationships to manage.
+
+Items are not fickle, they do not change.
+
+The process is something like, find every pair of movies that were watched by the same person, then measure the similarity of their ratings (out of 5 stars) over all users who watched both movies, then sort by the similarity of average rating strength to find a ranked set of similar movies. 
+
+[Movielens](https://movielens.org/) is a dataset of movies and ratings of those movies to find recommendations of new movies that you might like. 
+
+**Cosine Similarty**
+
+For this example, we are just rating Star Wars.
+ 
+So we are finding correlations between Star Wars and other movies.
+
+We will be taking an average of the correlation between ratings for 
+every user
+
+That is, for one pair, we would be taking the ratings for that movie, and finding all of the places in the dataset where a user has rated both movies, then taking the correlation for each of those
+i.e. 1 and 5 would be low correlation, 3 and 4 would be high, 1 and 1 would be perfect.
+
+Then take all of those coefficients and take the mean, i.e. sum them all up and divide by the number of terms.
+
+Then do that process for every other movie for which there is at least one user that has a rating for both.
+
+In practical terms we may want more than just one rating to make sure our sample size is large enough for it to be representative or useful as a prediction mechanism.
+
+So for movies that are quite obscure, we will need to remove them from the dataset, because if someone has rated Star Wars and one obscure movie both 5 stars, and they are the only person with that pairwise connection, then that will skew our data, because it will give a perfect correlation. So for this example we will be removing all movies that do not have at least N=100 ratings, in order to make sure that our sample size is sufficient. 
+
+**K-Nearest Neighbour**
+
+Given a scatterplot, we can compute the distance between any two points.
+K-Nearest neighbours is, given a new point that we want to classify, and a set of points that we have already classified, then we can classify that new data point by computing the K-Nearest Neighbours of that point, and then finding the highest number of occurrences for a class in that set. 
+
+**Principle Component Analysis (PCA)**
+
+Dimensionality reduction is the attempt to distill higher dimensional sinformation into lower dimensional information.
+
+K-means clustering is an example of a dimensionality reduction algorithm. It reduces data down to K dimensions, since the data becomes merely a set of distances from each centroid. 
+
+PCA finds "hyperplanes" which we project our data on in our lower dimensional data space. We do this in a way that preserves most of the variance in the data. These hyperplanes are defined by eigenvectors of the data. 
+
+In the context of the Iris dataset, we can take 4 dimensional data, which in our case is the length and width of the sepal and petal respectively. We can project this 4D data down into a 2D data space using this technique. 
+
+A common application of PCA is image compression, which allows us to preserve a lot of the information in an image while also reducing the size stored on disk.
+
+With the Iris dataset, it is possible to compress, flatten or transform the 4D data down to a 2D data space. This works well because the different variables are likely highly correlated, that is, it is possible that one variable can be formed quite easily out of two other variables. In this instance, we can mostly just measure the overall size of the whole flower instead of having to measure the petal and sepal widths, and PCA has "distilled" the dataset down into a simpler form using this correlation.
+
+**Data Warehousing**
+
+A data warehouse is essentially just a big database that takes in data from a variety of different sources. It is commonly used for analysis in a business.
+
+Data normalization and cleaning can be a difficult problem when working with a lot of data. 
+
+**ETL: Extract, Transform, Load**
+
+Raw data is first extracted from the system.
+
+The data is then transformed into the database schema that is required by the data warehouse.
+
+The data is then loaded into the warehouse. 
+
+The problem becomes this transform step, when dealing with "big data", this can be an expensive operation. 
+
+**ELT: Extract, Load, Transform**
+
+The idea behind ELT is to instead extract the data, load it straight into our data warehouse, and then use the power of distributed computing and software to transform the data "in place".
+
+This takes advantage of a NoSQL database, where we do not need to worry about schema anymore and transforming the data before it hits our system. 
+
+*Examples:* Hadoop, Hive, SparkSQL, Mapreduce.
+
+Data warehousing is an entire discipline in and of itself.
 
