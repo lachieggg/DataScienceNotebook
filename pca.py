@@ -1,8 +1,5 @@
 # Code for PCA
 #
-# Credit for the code to Frank Kane at Sundog Software
-#
-#
 
 from sklearn.datasets import load_iris
 from sklearn.decomposition import PCA

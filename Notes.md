@@ -183,9 +183,6 @@ For instance:
 $price = \alpha + \beta_{1}*mileage + \beta_{2}*age + \beta_{3}*doors$
 
 
-
-
-
 Multivariate Regression
 =
 
@@ -244,7 +241,15 @@ Recall:
 
 $Pr(A|B) = \dfrac{Pr(A)Pr(B|A)}{Pr(B)}$
 
+$Pr(A) = Pr(A|B)Pr(B) + Pr(A|¬B)Pr(¬B)$
+
 **Naive Bayes**
+
+$Pr(Spam|Free) = \dfrac{Pr(Spam)Pr(Free|Spam)}{Pr(Free)}$
+
+The above equation is the probability that an email is spam given that it contains the word free.
+
+Naive Bayes just takes a set of these probabilities for all the words, and takes the product of all of them. 
 
 For an example of spam classification algorithm, i.e. an algorithm that determines the probability of whether or not a given email is spam or not.
 
