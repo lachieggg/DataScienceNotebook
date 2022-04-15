@@ -478,3 +478,16 @@ This takes advantage of a NoSQL database, where we do not need to worry about sc
 
 Data warehousing is an entire discipline in and of itself.
 
+**Reinforcement Learning**
+
+A form of Machine Learning that operates by 'reinforcing' certain behaviours or actions by giving them a higher score than other less desirable actions.
+
+*Q Learning* is a particular form of reinforcement learning. In Q-Learning, we have a set of states $s$, a set of actions $a$, and a value of each state and action $Q$. 
+
+The algorithm is as follows. Begin with $Q$ values of 0. Explore the environment. If something bad happens, reduced the $Q$ value for the previous actions. If something good happens, increase the $Q$ value for the previous action or set of actions. Reinforcement learning is analogous to classical conditioning in Psychology (Pavlovian conditioning).
+
+How do we discover all possible states if we only follow a greedy approach of following the highest Q value? Similarly to hill climbing, this greedy approach may land us at a local optima  as opposed to a global one. The answer to this is to use randomness. We introduce an epsilon term ($\epsilon$) and effectively roll a dice to determine which path to follow. Now the new question becomes, how do we pick our $\epsilon$, also known as our exploration rate.
+
+Q-Learning is a kind of *Markov Decision Process* and it is also an application of *Dynamic Programming*, since we are storing the solutions to subproblems in our exploration of the environment to find the optimal set of weights for each of the possible action/state pairings. 
+
+
