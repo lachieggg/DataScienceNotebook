@@ -479,15 +479,106 @@ This takes advantage of a NoSQL database, where we do not need to worry about sc
 Data warehousing is an entire discipline in and of itself.
 
 **Reinforcement Learning**
-
+---
 A form of Machine Learning that operates by 'reinforcing' certain behaviours or actions by giving them a higher score than other less desirable actions.
 
 *Q Learning* is a particular form of reinforcement learning. In Q-Learning, we have a set of states $s$, a set of actions $a$, and a value of each state and action $Q$. 
 
-The algorithm is as follows. Begin with $Q$ values of 0. Explore the environment. If something bad happens, reduced the $Q$ value for the previous actions. If something good happens, increase the $Q$ value for the previous action or set of actions. Reinforcement learning is analogous to classical conditioning in Psychology (Pavlovian conditioning).
+The algorithm is as follows. Begin with $Q$ values of 0. Explore the environment. If something bad happens, reduce the $Q$ value for the previous actions. If something good happens, increase the $Q$ value for the previous action or set of actions. Reinforcement learning is analogous to classical conditioning in Psychology (Pavlovian conditioning).
 
-How do we discover all possible states if we only follow a greedy approach of following the highest Q value? Similarly to hill climbing, this greedy approach may land us at a local optima  as opposed to a global one. The answer to this is to use randomness. We introduce an epsilon term ($\epsilon$) and effectively roll a dice to determine which path to follow. Now the new question becomes, how do we pick our $\epsilon$, also known as our exploration rate.
+
+How should we explore the environment? We could always choose the best Q value and use that to explore states. But this is quite a rigid approach and could end up missing the global optima, since it is a greedy approach. How do we discover all possible states if we only follow a greedy approach of following the highest Q value? Similarly to hill climbing, this greedy approach may land us at a local optima  as opposed to a global one. 
+
+The answer to this is to use randomness. We introduce an epsilon term $\epsilon$ and effectively roll a dice to determine which path to follow. Now the new question becomes, how do we pick our $\epsilon$, also known as our exploration rate.
 
 Q-Learning is a kind of *Markov Decision Process* and it is also an application of *Dynamic Programming*, since we are storing the solutions to subproblems in our exploration of the environment to find the optimal set of weights for each of the possible action/state pairings. 
 
+**Confusion Matrices**
+---
+
+                  |  Actual YES    |  Actual NO
+    -----------------------------------------------
+    Predicted Yes |  True Positive    False Positive
+    Predicted No  |  False Negative   True Negative
+
+A confusion matrix is essentially just a breakdown for the accuracy of a model across different input data.
+
+Confusion matrices can sometimes be represented as heat maps with the colour mapping to a value. The confusion matrix can also represent more than just yes and no outcomes, like "I got a 1 but expected an 8" for instance. We would expect a dark line through the middle of the matrix in this case.
+
+**Measuring Classifiers**
+
+*Recall*:
+
+Let $TP$ be the number of true positives in a test data set. Let $TN$ be the number of true negatives. Let $FP$ be the number of false positives. Let $FN$ be the number of false negatives.
+
+Recall is defined as
+$\dfrac{TP} {TP + FN} $
+
+Also known as Sensitivity, True Positive rate, completeness. It is a good choice of metric when you care a lot about false negatives, like fraud detection (want to be leaning toward false positives in that case).
+
+*Precision*:
+
+$\dfrac{TP} {TP + FP}$
+
+Also known as Correct Positives. It is a good choice of metric when you care a lot about false positives, like in drug testing. 
+
+*Specificity*:
+
+$\dfrac{TN} {TN + FP}$
+
+*F1 score*:
+
+$2*\dfrac {Precision*Recall} {Precision+Recall}$
+
+For when you care about precision and recall.
+
+**ROC Curve (Receiver Operating Characteristic Curve)**
+
+Plot of the true positive rate (recall) vs. false positive rate at various threshold settings. The points above the diagonal represent good classification, since they are better than random, because random in a boolean setting is just an accuracy of 0.5.
+
+How bent the curve is towards the upper left corner is an indication of how good the model is. A perfect curve would just be a point in the upper left corner, where there is a true positive rate of 1 and a false positive rate of 0.
+
+**AUC (Area under the ROC curve)**
+
+The area under the curve is equal to the probability that the model (classifier) will rank a randomly chosen positive instance higher than a randomly chosen negative one. An AUC of 1.0 is perfect, because it will rank a positive instance higher than a negative one always, and an AUC of 0.5 is useless, because in that case we might as well be flipping a coin and using that as our model. An AUC of less than 0.5 is worse than useless because it is more likely to predict the wrong outcome.
+
+As previously stated, the ROC curve with of $y=x$ refers to a useless classifier since the average true positive is just as common as the true negative for different inputs.
+
+Real World Data
+=
+
+Bias / Variance Tradeoff
+---
+
+Taking the mean of the predicitions, are they all close to the mean of the expected answers? 
+
+The bias is a measure of how close the mean of the predicted values is to the expected outcome. Bias is akin to skew.
+
+The variance is a measure of how scattered the individual values are from the expected outcome. Variance is akin to probabilistic variance. 
+
+That is, the bias will take the mean of the outcomes, and determine if that is close to the expected outcome. And the variance will just take the sum of squared errors from the expected outcome, instead of averaging all the outcomes out first.
+
+In the context of a dartboard, with the darts representing the outcomes and the bullseye representing the expected outcome.
+
+Low bias and high variance occurs in the case that the darts are scattered around the bullseye, where the average position of all darts combined is on the bullseye but no individual dart hits it.
+
+High bias and low variance would occur in the case that all the outcomes occur in the same area, but are far away from the expected outcome.
+
+High bias and high variance would be where average position when summing the positions of all the darts is far away from the bullseye, but the sum of the variance of each dart is also high.
+
+Low bias and low variance would occur when the darts are on the bullseye.
+
+Essentially variance is a measure of how consistent we are with our predictions. Bias is a measure of how accurate we are to the expected outcome. 
+
+Sometimes in the real world you need to choose between bias and variance. This is akin to overfitting or underfitting your data.
+
+Let $B = Bias$, $V = Variance$ and $E = Error$
+
+Then $E = B^2 + V$ 
+
+Error is what we wish to minimize, not $B$ or $V$.
+
+A model that is too complicated will have a high variance and a low bias (overfit).
+
+A model that is too simple will have a low variance and a high bias.
 
